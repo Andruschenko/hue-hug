@@ -1,8 +1,7 @@
 import hug
 import os
-from src.handlers import pics, submit
+from src.handlers import profile, submit
 
 @hug.extend_api('')
 def api():
-  print(os.environ['DB_HOST'])
-  return [pics, submit]
+  return [profile, submit]
