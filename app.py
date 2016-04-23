@@ -1,7 +1,7 @@
 import hug
 import os
-from src.handlers import profile, submit
+from src.handlers import basic, profile, submit
 
 @hug.extend_api('')
 def api():
-  return [profile, submit]
+  return [basic, profile, submit]
