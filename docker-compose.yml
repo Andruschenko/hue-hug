@@ -7,16 +7,15 @@ services:
     volumes:
       - .:/app
     environment:
-      DB_URL: db
+      DB_HOST: db
     command: hug -f app.py
+    depends_on:
+      - db
 
   db:
     image: mongo
     ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_PASSWORD: mysecret
-      # POSTGRES_USER: root
+      - "27017:27017"
 
   # azure cli container for facility, not for production
   # azure-cli:
