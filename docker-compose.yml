@@ -6,14 +6,16 @@ services:
     build: .
     volumes:
       - .:/app
-    command: hug -f src/hug.py
+    environment:
+      DB_URL: db
+    command: hug -f app.py
 
-  # db:
-  #   image: postgres
-  #   ports:
-  #     - "5432:5432"
-  #   environment:
-  #     POSTGRES_PASSWORD: mysecret
+  db:
+    image: mongo
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: mysecret
       # POSTGRES_USER: root
 
   # azure cli container for facility, not for production
