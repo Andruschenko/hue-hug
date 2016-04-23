@@ -1,5 +1,6 @@
 import hug
 import os
+import json
 from hug.types import longer_than, text
 from ..database.db import db
 
@@ -15,4 +16,4 @@ def submit(image: longer_than(100, convert=text)):
   # cut out actual images from coordinates
 
   # return images as an array of base64 strings
-  return "We just submitted your image"
+  return json.dumps({ "bubu": "hello" })
