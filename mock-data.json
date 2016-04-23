@@ -1,0 +1,20 @@
+{
+  src: "base64image"
+}
+
+// should try to get image as png if possible
+
+{
+  blue: [
+    "base641",
+    "base641",
+  ],
+  green: [
+    "base641",
+    "base641"
+  ],
+  red: [
+    "base641",
+    "base641"
+  ]
+}
