@@ -1,4 +1,8 @@
 version: '2'
 services:
   hug:
+    ports:
+      - "8000:8000"
     build: .
+    volumes:
+      - .:/app

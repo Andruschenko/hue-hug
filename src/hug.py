@@ -1,6 +1,6 @@
 import hug
-from handlers import birthday, hello
+from handlers import hello, submit
 
 @hug.extend_api('')
 def api():
-    return [hello, birthday]
+    return [hello, submit]
