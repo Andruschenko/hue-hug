@@ -6,6 +6,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cv2
 
+# for sending to ocr api
+import binascii
+import requests
+import os
+
 from StringIO import StringIO
 from io import BytesIO
 from PIL import Image
@@ -32,6 +37,26 @@ def getCoordinates(position):
 def optimizeImage(image):
 	return image
 
+def askOcrApi(image):
+	imageAsBinary = BytesIO()
+	image.save(imageAsBinary, "jpeg")
+	headers = {
+		'Content-Type': 'application/octet-stream',
+		'Ocp-Apim-Subscription-Key': 'd3684282b5f34466a52ce03bcd9679ac'
+	}
+	try: response = requests.post(url='https://api.projectoxford.ai/vision/v1/ocr?language=en&detectOrientation=true', data=imageAsBinary.getvalue(), headers=headers)
+	except URLError as e:
+		print e
+	result = response.json()
+	text = ''
+	try:
+		words = result['regions'][0]['lines'][0]['words']
+		for item in words:
+			text = text + ' ' + item['text']
+	except KeyError, AssertionError:
+		return ''
+	return text
+
 def getImages(base64String):
 	positions = getPositions(base64String)
 	openCvImage = convertNumpyArrayToOpenCV(convertToNumpyArray(createImageFromBase64(base64String)))
@@ -55,6 +80,8 @@ def getImagesAsJson(base64String):
 		for position in positions[color]:
 			image = createImage(position, openCvImage)
 			pilImage = Image.fromarray(image)
+			text = ''
+			text = askOcrApi(pilImage)
 			encodedString = base64.b64encode(pilImage.tostring())
 			c = getCoordinates(position)
 			jsonDataImage = {
@@ -63,6 +90,7 @@ def getImagesAsJson(base64String):
 				'starty': c['y1'],
 				'endx': c['x2'],
 				'endy': c['y2']
+				'text': text
 			}
 			jsonData[color].append(jsonDataImage)
 	return json.dumps(jsonData)
