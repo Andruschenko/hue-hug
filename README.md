@@ -33,3 +33,8 @@
     * Detect whether image is suitable or not. (imageTropical.json gives several results for blue, but it is not a whiteboard)
     * Did not work with .gif image (do we need that?)
 
+## Tipps
+
+Delete `.pyc` files with:
+
+    find . | grep -E "(__pycache__|\.pyc|\.pyo$)" | xargs rm -rf
