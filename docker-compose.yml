@@ -1,22 +1,8 @@
 version: '2'
 services:
-  hug:
+  clairecut-server:
     ports:
-      - "8000:8000"
+      - "5000:5000"
     build: .
     volumes:
       - .:/app
-    environment:
-      DB_HOST: db
-    command: hug -f app.py
-    depends_on:
-      - db
-
-  db:
-    image: mongo
-    ports:
-      - "27017:27017"
-
-  # azure cli container for facility, not for production
-  # azure-cli:
-  #   image: microsoft/azure-cli
