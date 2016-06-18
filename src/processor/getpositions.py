@@ -81,11 +81,12 @@ def getPositions(base64String):
 	return results
 
 
+#### Testing #####
 
-with open('image2.json') as dataFile:
-	data = json.load(dataFile)
-getPositions(data['src'])
-
-k = cv2.waitKey(0)
-if k == 27:
-	cv2.destroyAllWindows()
+# with open('image2.json') as dataFile:
+# 	data = json.load(dataFile)
+# getPositions(data['src'])
+#
+# k = cv2.waitKey(0)
+# if k == 27:
+# 	cv2.destroyAllWindows()
