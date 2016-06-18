@@ -1,3 +1,2 @@
-hug==2.0.6
-pymongo==3.2.2
-python-socketio==1.2.0
+Flask
+numpy
