@@ -15,18 +15,23 @@ def hello_world():
 
 @app.route('/api/v1/submit', methods=['POST'])
 def process_image():
-    image = request.form['image']
+    
+    jsonData = request.get_json()
+    image = jsonData['image']
 
     # ## Debugging
     # with open('images/imageTropical.json') as dataFile:
     #     data = json.load(dataFile)
     #     imageAsJson = getImagesAsJson(data['src'])
 
-    imageAsJson = getImagesAsJson(image)
-    return jsonify({ 'colors': imageAsJson })
+    pieces = getImagesAsJson(image)
+    return jsonify({ 'pieces': pieces })
 
 
 ## Pretty error handling
+@app.errorhandler(400)
+def not_found(error):
+    return make_response(jsonify({'error': 'Bad request. Please check your request syntax.'}), 400)
 
 @app.errorhandler(404)
 def not_found(error):

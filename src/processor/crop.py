@@ -95,7 +95,7 @@ def getImagesAsJson(base64String):
 				# 'text': text
 			}
 			jsonData[color].append(jsonDataImage)
-	return json.dumps(jsonData)
+	return jsonData
 
 
 # with open('image2.json') as dataFile:
