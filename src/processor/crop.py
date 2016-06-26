@@ -84,7 +84,14 @@ def getImagesAsJson(base64String):
 			pilImage = Image.fromarray(image)
 			# text = ''
 			# text = askOcrApi(pilImage)
-			encodedString = base64.b64encode(pilImage.tostring())
+
+			bufferImage = BytesIO()
+			pilImage.save(bufferImage, format="JPEG")
+			encodedString = base64.b64encode(bufferImage.getvalue())
+
+			# Former code
+			# encodedString = base64.urlsafe_b64encode(pilImage.tostring())
+
 			c = getCoordinates(position)
 			jsonDataImage = {
 				'base64':encodedString,
