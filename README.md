@@ -35,6 +35,8 @@
 
 ## Tipps
 
+For Processing Algorithm, look at processor/README.md 
+
 Delete `.pyc` files with:
 
     find . | grep -E "(__pycache__|\.pyc|\.pyo$)" | xargs rm -rf

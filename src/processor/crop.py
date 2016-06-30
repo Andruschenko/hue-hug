@@ -37,12 +37,14 @@ def getCoordinates(position):
 def optimizeImage(image):
 	return image
 
+
+# Here, OCR API is used
 # def askOcrApi(image):
 # 	imageAsBinary = BytesIO()
 # 	image.save(imageAsBinary, "jpeg")
 # 	headers = {
 # 		'Content-Type': 'application/octet-stream',
-# 		'Ocp-Apim-Subscription-Key': 'd3684282b5f34466a52ce03bcd9679ac'
+# 		'Ocp-Apim-Subscription-Key': '*****************************'
 # 	}
 # 	try: response = requests.post(url='https://api.projectoxford.ai/vision/v1/ocr?language=en&detectOrientation=true', data=imageAsBinary.getvalue(), headers=headers)
 # 	except URLError as e:

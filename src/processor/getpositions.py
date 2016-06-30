@@ -1,6 +1,10 @@
 # Burda Hackday Project
 
+# Read README.md first :)
+
+
 # First task: Select image parts, based on its colors
+
 
 
 #import librarys
@@ -36,7 +40,6 @@ def whiteToBlack(image):
 def getColor(image, pathArray):
 	mask = np.zeros(image.shape[:2], np.uint8)
 	cv2.drawContours(mask, pathArray, -1, 255, -1)
-	#cv2.imshow('image',image)
 	meanValues = cv2.mean(image,mask = mask)
 	maxIndex = meanValues.index(max(meanValues))
 	return indexToColor(maxIndex)
@@ -64,6 +67,7 @@ def getPositions(base64String):
 		divider = config['divider']
 	imageArray = convertToNumpyArray(image)
 	optimizedImage = imageArray
+
 	#Creating Binary image
 	openCvImage = convertNumpyArrayToOpenCV(optimizedImage)
 	openCvImageBW = convertNumpyArrayToOpenCVBinary(openCvImage)	
