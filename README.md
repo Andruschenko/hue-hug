@@ -35,7 +35,7 @@
 
 ## Tipps
 
-For Processing Algorithm, look at processor/README.md 
+To undestand the image processing algorithm, look at processor/README.md 
 
 Delete `.pyc` files with:
 
