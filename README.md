@@ -2,18 +2,18 @@
 
 ## Run
 
-1. Install docker
-
 2. Download project
 
-		$ git clone ...
-		$ cd ...
+		$ git clone https://github.com/clairecut/clairecut-backend.git
+		$ cd clairecut-backend
 
-2. Start container
+2. This project uses [docker](https://github.com/docker/docker), so start the container by running
 
 		$ docker-compose up
 
-3. Test back-end with a `POST` request to
+3. If you see a `{ hello: world }` response to a `GET` request to `$ <YOUR_DOCKER_IP>/api/v1` the server is running. 
+
+4. Further test the back-end with a `POST` request to
 
 		$ <YOUR_DOCKER_IP>/api/v1/submit
 		
@@ -33,6 +33,8 @@
     * Detect whether image is suitable or not. (imageTropical.json gives several results for blue, but it is not a whiteboard)
     * Did not work with .gif image (do we need that?)
 
+further tasks: see `Issues` of this repo.
+ 
 ## Tipps
 
 To undestand the image processing algorithm, look at processor/README.md 
