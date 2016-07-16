@@ -46,3 +46,6 @@ It contains the functions to:
 - the code is not yet functional, for example the preprocessing is not called anywhere
 - the code needs cleaning, throw out stuff that is not important
 - the getPositions function is messy
+
+## Issues:
+- dynamic thresholding

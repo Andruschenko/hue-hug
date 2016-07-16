@@ -1,4 +1,5 @@
 config = {
 	'divider': 5,
-	'threshold': .7
+	#this should be done dynamically
+	'threshold': .03
 }
