@@ -19,6 +19,16 @@
 		
 	and include a base64 encoded image as payload with parameter `image`.
 
+
+## Test
+Test with one word in the image:
+
+        $ python test0.py
+
+Test with six words on the image
+
+        $python test1.py
+
 ## Future Tasks
 
 1. Validation
