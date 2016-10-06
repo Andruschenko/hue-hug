@@ -101,8 +101,6 @@ class ClairesCutter:
         W = rect[1][0]
         H = rect[1][1]
 
-        print W
-
         Xs = [i[0] for i in box]
         Ys = [i[1] for i in box]
         x1 = min(Xs)

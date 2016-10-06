@@ -1,4 +1,9 @@
+import base64
+import cStringIO
+
+import numpy as np
 from flask import Flask, jsonify, make_response, request
+from PIL import Image
 
 from src.processor.cutter import ClairesCutter
 
@@ -14,17 +19,18 @@ def hello_world():
 
 @app.route('/api/v1/submit', methods=['POST'])
 def process_image():
-    jsonData = request.get_json()
-    return request
-
-    #cutter = ClairesCutter(jsonData['image'], 'base64')
-    #positions = cutter.getPositions()
-    #pieces = {'red': [], 'green': [], 'blue': []}
-    # for color in positions:
-    #    for position in positions[color]:
-    #        pieces[color].append(cutter.crop(position))
-
-    # return jsonify({'pieces': pieces})
+    jsonData = request.get_json(force=True)
+    cutter = ClairesCutter(jsonData['image'], 'base64')
+    positions = cutter.getPositions()
+    pieces = {'red': [], 'green': [], 'blue': []}
+    for color in positions:
+        for position in positions[color]:
+            imagePart = Image.fromarray(cutter.crop(position))
+            buffer = cStringIO.StringIO()
+            imagePart.save(buffer, format="JPEG")
+            imageAsBase64 = base64.b64encode(buffer.getvalue())
+            pieces[color].append(imageAsBase64)
+    return jsonify({'pieces': pieces})
 
 
 # Pretty error handling
