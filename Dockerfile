@@ -1,30 +1,31 @@
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 
-# To mute debconf messages (see https://github.com/phusion/baseimage-docker/issues/58)
-RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+#3.4.3
+ENV PYTHON_VERSION 2.7
 
-# Update and install some command-line tools + python plus required packages
-# TODO: Remove unnecessary tools
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    cmake \
-    curl \
-    git \
-    libfreetype6 \
-    libopencv-dev \
-    pkg-config \
-    python2.7 \
-    python2.7-dev \
-    python-distribute \
-    python-matplotlib \
-    python-numpy \
-    python-opencv \
-    python-pip \
-    tar \
-    vim \
-    wget \
-&& pip install Flask
+# Install OpenCV 3.0
+RUN apt-get -y update
+RUN apt-get -y install build-essential cmake git
+RUN apt-get -y install ffmpeg libopencv-dev libgtk-3-dev python-numpy python3-numpy \
+                       libdc1394-22 libdc1394-22-dev libjpeg-dev libpng12-dev libtiff5-dev \
+                       libjasper-dev libavcodec-dev libavformat-dev libswscale-dev libxine2-dev \
+                       libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libv4l-dev libtbb-dev \
+                       qtbase5-dev libmp3lame-dev libopencore-amrnb-dev \
+                       libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev x264 v4l-utils \
+                       unzip wget
+RUN apt-get -y install python$PYTHON_VERSION-dev
+RUN apt-get -y install python-pip python-tk
+RUN pip install numpy matplotlib Flask jsonify request image
 
+RUN wget https://github.com/opencv/opencv/archive/3.1.0.zip -O opencv3.zip && \
+    unzip -q opencv3.zip && mv /opencv-3.1.0 /opencv
+RUN mkdir /opencv/build
+WORKDIR /opencv/build
+RUN cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_TBB=ON -D WITH_V4L=ON -D WITH_QT=ON -D WITH_OPENGL=ON -D WITH_CUBLAS=ON ..
+RUN make
+RUN make install
+RUN /bin/bash -c 'echo "/usr/local/lib" > /etc/ld.so.conf.d/opencv.conf'
+RUN ldconfig
 
 ## If server was build once already, just comment all above this line and uncomment the line below
 # FROM huehug_clairecut-server
