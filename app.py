@@ -14,6 +14,7 @@ app = Flask(__name__)
 
 @app.route('/api/v1/', methods=['GET'])
 def hello_world():
+    print 'Hello World!'
     return jsonify({'hello': 'world'})
 
 
@@ -21,6 +22,7 @@ def hello_world():
 def process_image():
     jsonData = request.get_json(force=True)
     cutter = ClairesCutter(jsonData['image'], 'base64')
+    print jsonData['image']
     positions = cutter.getPositions()
     pieces = {'red': [], 'green': [], 'blue': []}
     for color in positions:
