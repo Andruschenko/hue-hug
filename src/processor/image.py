@@ -2,12 +2,13 @@
 import base64
 import re
 from copy import deepcopy
-from io import BytesIO
+import cStringIO
 
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
-from PIL import Image
+#from PIL import Image
+import matplotlib.image as Image
 
 from helpers import indexToColor
 
@@ -19,7 +20,9 @@ class ClairesImage():
         if type == 'base64':
             base64String = re.sub('^data:image/.+;base64,',
                                   '', input).decode('base64')
-            self.__image = Image.open(BytesIO(base64String))
+
+            image = Image.open(cStringIO.StringIO(image_data))
+            self.__image = image
             self.__backupImage = deepcopy(self.__image)
             return
         else:

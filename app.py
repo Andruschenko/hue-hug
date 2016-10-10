@@ -17,12 +17,19 @@ def hello_world():
     print 'Hello World!'
     return jsonify({'hello': 'world'})
 
+@app.route('/api/v1/echo', methods=['POST'])
+def echo():
+    jsonData = request.get_json(force=True)
+    return jsonify(jsonData)
 
 @app.route('/api/v1/submit', methods=['POST'])
 def process_image():
     jsonData = request.get_json(force=True)
+
+    if len(jsonData['image']) < 20:
+        return jsonify({'error': 'image is too short'})
+
     cutter = ClairesCutter(jsonData['image'], 'base64')
-    print jsonData['image']
     positions = cutter.getPositions()
     pieces = {'red': [], 'green': [], 'blue': []}
     for color in positions:
